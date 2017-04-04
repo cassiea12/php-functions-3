@@ -3,26 +3,29 @@
   require_once('functions.php');
 
   // Create coffee array with prices (associative array)
-  $theDrinks = array(
-    'coffee'=>1.25,
-    'espresso'=>2.5,
-    'latte'=>4.25,
-    'mocha'=>4.75
+  $flowerArr = array(
+    'rose'=>1.25,
+    'lily'=>4.25,
+    'tulip'=>4.75,
+    'orchid'=>4.75,
+    'sunflower'=>4.75,
+    'daisy'=>4.75,
+    'daffodil'=>4.75
   );
 
   // Process the form request
   if( isset($_POST['submit']) )
   {
-      $theName = htmlentities($_POST['name']);
-      $theCoffee = htmlentities($_POST['coffee']);
-      $theCoffee = strtolower($theCoffee); // Lowercase form submission
-      $theQuantity = htmlentities($_POST['quantity']);
-      $coffee = makeCoffee($theName, $theDrinks, $theCoffee, $theQuantity);
+      $customer = htmlentities($_POST['customer']);
+      $flowerType = htmlentities($_POST['flowerType']);
+      $flowerType = strtolower($flowerType); // Lowercase form submission
+      $numPots = htmlentities($_POST['numPots']);
+      $flowers = buyFlowers($customer, $flowerArr, $numPots, $flowerType);
   } else {
     // User hasn't entered a value
-    $theCoffee = '';
-    $coffee = '';
-    $theName = '';
+    $flowerType = '';
+    $flowers = '';
+    $customer = '';
   }
 ?>
 
@@ -30,27 +33,36 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Functional Coffee</title>
+    <title>Buy Flowers</title>
     <link rel="stylesheet" href="css/bootstrap.css">
   </head>
   <body class="bg-faded">
     <main class="container py-4">
-      <h1 class="pb-4 font-weight-bold text-center">What Will You Drink?</h1>
+      <h1 class="pb-4 font-weight-bold text-center">What Flowers Will You Buy?</h1>
+
       <form class="form-inline justify-content-center" action="" method="post">
-        <label for="name" class="sr-only">Name</label>
-        <input class="form-control mr-2" type="text" value="<?php echo ( $theName ? $theName : '' );?>" placeholder="Name" name="name" id="name"> <span class="mr-2">wants a</span>
-        <select class="custom-select mr-2" name="coffee" id="coffee">
-          <?php echo '<option value="'.( $theCoffee ? $theCoffee : 'nothing' ).'">'.( $theCoffee ? capfirst($theCoffee) : 'Select a Drink' ).'</option>'; ?>
-          <?php foreach ($theDrinks as $drink => $price) {
-            echo '<option value="'.$drink.'">'.capfirst($drink).'</option>';
+
+        <label for="customer" class="sr-only">Customer</label>
+
+        <input class="form-control mr-2" type="text" value="<?php echo ( $customer ? $customer : '' );?>" placeholder="Name" name="customer" id="customer"> <span class="mr-2"> would like </span>
+
+
+        <input class="form-control mr-2" type="numPots" value="<?php echo ( $numPots ? $numPots : '' );?>" placeholder="Quantity" name="numPots" id="numPots">
+
+        <select class="custom-select mr-2" name="flowerType" id="flowerType">
+          <?php echo '<option value="'.( $flowerType ? $flowerType : 'nothing' ).'">'.( $flowerType ? capfirst($flowerType) : 'Select a Flower' ).'</option>'; ?>
+          <?php foreach ($flowerArr as $flower => $price) {
+            echo '<option value="'.$flower.'">'.capfirst($flower).'</option>';
           }; ?>
-        </select> <span class="mr-2">for</span>
-        <input class="form-control mr-2" type="number" value="<?php echo ( $theQuantity ? $theQuantity : '' );?>" placeholder="Quantity" name="quantity" id="quantity">
+        </select>
+        <span class="mr-2">pot(s)</span>
+
         <button class="btn btn-outline-primary" name="submit" type="submit">Submit</button>
       </form>
+
       <?php
-        if($coffee){
-           echo $coffee;
+        if($flowers){
+           echo $flowers;
         }
       ?>
     </main>

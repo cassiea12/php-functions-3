@@ -10,23 +10,24 @@ function capfirst($word) {
   return $word;
 }
 
-function makeCoffee($theName, $theDrinks, $theCoffee, $theQuantity) {
-  if ($theCoffee != 'nothing' && $theQuantity > 0) {
+function buyFlowers($customer, $flowerArr, $numPots, $flowerType) {
+  if ($flowerType != 'nothing' && $numPots > 0) {
     $valid = true;
-    $price = $theDrinks[$theCoffee];
-    $total = $price * $theQuantity;
-    if ($theQuantity < 2) {
-      $title = titlecase($theCoffee).' for '.$theName;
-      $theTotal = 'Total: $'.number_format($total, 2); //make the total go up by 2 decimal spaces (ex: $2.5 is now $2.50)
-      $description = $theName.' ordered '.$theQuantity.' '.$theCoffee.'.';
-    } elseif ($theQuantity > 50) {
-      $title = 'No '.titlecase($theCoffee).' for '.$theName;
-      $theCoffee = 'rediculous';
-      $description = 'Don&rsquo;t be rediculous, '.$theName.', that&rsquo;s more coffee than any one barista can ever brew on time! Also, you don&rsquo;t have $'.number_format($total, 2).'!';
+    $price = $flowerArr[$flowerType];
+    $balance = $price * $numPots;
+    if ($numPots < 2) {
+      $title = titlecase($flowerType).' for '.$customer;
+      $balance = 'Total: $'.number_format($balance, 2); //make the total go up by 2 decimal spaces (ex: $2.5 is now $2.50)
+      $description = $customer.' ordered '.$numPots.' '.$flowerType.'.';
+    } elseif ($numPots > 30) {
+      $title = 'To complete the large order of '. $numPots .' '.titlecase($flowerType).' pots for '.$customer.':';
+      // $flowerType = 'rediculous';
+      $description = ''.$customer.', please call (430) 432-2212 to complete your order of '.$numPots.' '.$flowerType.' pots!';
+      $balance = 'Total: $'.number_format($balance, 2);
     } else {
-      $title = titlecase($theCoffee).' for '.$theName;
-      $theTotal = 'Total: $'.number_format($total, 2);
-      $description = $theName.' ordered '.number_format($theQuantity).' '.$theCoffee.'s.';
+      $title = titlecase($flowerType).' for '.$customer;
+
+      $description = $customer.' ordered '.number_format($numPots).' '.$flowerType.' pots.';
     }
   } else {
     $valid = false;
@@ -35,11 +36,11 @@ function makeCoffee($theName, $theDrinks, $theCoffee, $theQuantity) {
   if ($valid == true) {
     return('
       <div class="card my-4 mx-auto" style="width: 20rem;">
-        <img class="img-fluid" src="images/'.$theCoffee.'.jpg" alt="Card image cap">
+        <img class="img-fluid" src="images/'.$flowerType.'.jpg" alt="Card image cap">
         <div class="card-block">
           <h2 class="h4 card-title">'.$title.'</h2>
           <p class="card-text">'.$description.'</p>
-          <p class="h5">'.$theTotal.'</p>
+          <p class="h5">'.$balance.'</p>
         </div>
       </div>
     ');
@@ -49,7 +50,7 @@ function makeCoffee($theName, $theDrinks, $theCoffee, $theQuantity) {
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <p class="m-0"><strong>Oops!</strong> Pick a drink.</p>
+        <p class="m-0">Pick at least 1 flower pot!</p>
       </div>
     ');
   }
