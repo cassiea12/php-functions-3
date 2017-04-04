@@ -4,13 +4,13 @@
 
   // Create coffee array with prices (associative array)
   $flowerArr = array(
-    'rose'=>1.25,
-    'lily'=>4.25,
-    'tulip'=>4.75,
-    'orchid'=>4.75,
-    'sunflower'=>4.75,
-    'daisy'=>4.75,
-    'daffodil'=>4.75
+    'rose'=>4.25,
+    'lily'=>3.00,
+    'tulip'=>3.25,
+    'orchid'=>8.00,
+    'sunflower'=>4.00,
+    'daisy'=>2.75,
+    'daffodil'=>3.50
   );
 
   // Process the form request

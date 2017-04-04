@@ -18,16 +18,16 @@ function buyFlowers($customer, $flowerArr, $numPots, $flowerType) {
     if ($numPots < 2) {
       $title = titlecase($flowerType).' for '.$customer;
       $balance = 'Total: $'.number_format($balance, 2); //make the total go up by 2 decimal spaces (ex: $2.5 is now $2.50)
-      $description = $customer.' ordered '.$numPots.' '.$flowerType.'.';
+      $description = $customer.' ordered '.$numPots.' '.$flowerType.' pot.';
     } elseif ($numPots > 30) {
-      $title = 'To complete the large order of '. $numPots .' '.titlecase($flowerType).' pots for '.$customer.':';
+      $title = $numPots .' '.titlecase($flowerType).' pots for '.$customer.':';
       // $flowerType = 'rediculous';
       $description = ''.$customer.', please call (430) 432-2212 to complete your order of '.$numPots.' '.$flowerType.' pots!';
       $balance = 'Total: $'.number_format($balance, 2);
     } else {
       $title = titlecase($flowerType).' for '.$customer;
-
       $description = $customer.' ordered '.number_format($numPots).' '.$flowerType.' pots.';
+      $balance = 'Total: $'.number_format($balance, 2);
     }
   } else {
     $valid = false;
